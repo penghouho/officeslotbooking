@@ -1,0 +1,1 @@
+web: gunicorn officeslotbooking.wsgi --log-file -
