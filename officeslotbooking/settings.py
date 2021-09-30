@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-3zbnivcn^v2jzlvisl2@sa=3f*!o2((q9-z*q!@mwwmk_@3lq=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['officeslotbooking.herokuapp.com']
+ALLOWED_HOSTS = [os.getenv('DJANGO_HOST', '127.0.0.1')]
 
 
 # Application definition
