@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp',
+    'mainapp.apps.MainappConfig',
     'rest_framework',
 ]
 
@@ -192,7 +192,7 @@ REST_FRAMEWORK = {
         ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
+        'rest_framework.authentication.BasicAuthentication',  # if this at top, cannot log out web
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
