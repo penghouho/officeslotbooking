@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp.apps.MainappConfig',
     'rest_framework',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -203,7 +204,11 @@ REST_FRAMEWORK = {
 LOGIN_REDIRECT_URL = '/'
 
 # mailgun email server
-EMAIL_HOST = os.getenv('EMAIL_HOST', '')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-EMAIL_PORT = os.getenv('EMAIL_PORT', '')
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+ANYMAIL = {
+    "MAILJET_API_KEY": os.getenv('EMAIL_HOST_USER', ''),
+    "MAILJET_SECRET_KEY": os.getenv('EMAIL_HOST_PASSWORD', ''),
+    # disable AnymailRecipientsRefused exceptions on invalid or rejected recipients
+    "IGNORE_RECIPIENT_STATUS": True,
+}
+MAILJET_API_URL = "https://api.mailjet.com/v3.1/"
