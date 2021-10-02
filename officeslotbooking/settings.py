@@ -212,3 +212,4 @@ ANYMAIL = {
     "IGNORE_RECIPIENT_STATUS": True,
 }
 MAILJET_API_URL = "https://api.mailjet.com/v3.1/"
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', '')
