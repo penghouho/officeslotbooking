@@ -199,4 +199,12 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+# redirect after login success
 LOGIN_REDIRECT_URL = '/'
+
+# email server
+EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+EMAIL_HOST= 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
