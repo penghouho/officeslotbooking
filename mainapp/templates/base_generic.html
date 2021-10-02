@@ -18,8 +18,6 @@
           {% if user.is_authenticated %}
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'logout'%}">Logout</a></li>
-            <li><a href="">All books</a></li>
-            <li><a href="">All authors</a></li>
           {% else %}
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'login'%}">Login</a></li>
