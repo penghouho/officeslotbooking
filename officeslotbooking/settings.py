@@ -202,9 +202,9 @@ REST_FRAMEWORK = {
 # redirect after login success
 LOGIN_REDIRECT_URL = '/'
 
-# email server
-EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME', '')
-EMAIL_HOST= 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD', '')
+# mailgun email server
+EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER', '')
+EMAIL_PORT = os.getenv('MAILGUN_SMTP_PORT', '')
+EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD', '')
+
