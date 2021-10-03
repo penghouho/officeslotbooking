@@ -17,15 +17,4 @@
   <div class="d-flex p-2">
     {{ cal }}
   </div>
-
-
-  <form action="createBooking" method="POST">
-    <input type="hidden" name="user_id" value="{{ user.id }}" />
-    <button type='submit' class="btn-success">JOIN</button>
-  </form>
-
-  <form action="deleteBooking" method="POST">
-    <input type="hidden" name="user_id" value="{{ user.id }}" />
-    <button type='submit' class="btn-danger">REMOVE</button>
-  </form>
 {% endblock %}
