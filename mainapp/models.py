@@ -11,3 +11,9 @@ class Booking(models.Model):
     book_date = models.DateField('date booked', null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['book_date', 'user'], name='user_book_date')
+        ]
+        ordering = ['created_at']
