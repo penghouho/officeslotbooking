@@ -115,11 +115,13 @@ def date_details(request):
             target_date = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
         bookings_from_day = Booking.objects.filter(book_date=target_date)
         is_joined = bookings_from_day.filter(user=request.user).exists()
+        bookings_count = bookings_from_day.count()
         context = {
             'bookings_from_day': enumerate(bookings_from_day,start= 1),
             'date': target_date.strftime("%Y-%m-%d"),
             'is_joined': is_joined,
-            'reached_limit': bookings_from_day.count() >= 20,
+            'reached_limit': bookings_count >= 20,
+            'bookings_count': bookings_count,
         }
         print(context)
         return render(request, 'date_details.html', context=context)
@@ -135,7 +137,7 @@ def create_booking(request):
             target_date = datetime.strptime(date_string, "%Y-%m-%d")
         except ValueError:
             target_date = None
-        if target_date is None:
+        if target_date is None or target_date <= datetime.strptime('2021-10-03', "%Y-%m-%d"):
             return HttpResponseRedirect('/')
         else:
             bookings_count = Booking.objects.filter(book_date=target_date).count()

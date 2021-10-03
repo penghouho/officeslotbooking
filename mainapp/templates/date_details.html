@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Booking of {{ date }}</h1>
+  <h1>{{ bookings_count }} Bookings of {{ date }}</h1>
 
   {% if is_joined == False and reached_limit == False %}
     <form action="/create_booking/" method="POST">
@@ -21,17 +21,21 @@
   {% endif %}
 
   <div class="table-responsive">
-    <table class="table">
-      <thead>
+    <table class="table table-striped">
+      <thead class="thead-dark">
         <tr>
           <th>No.</th>
           <th>Full name</th>
         </tr>
       </thead>
+      <tbody>
       {% for index, booking in bookings_from_day %}
-        <td> {{ index }}</td>
-        <td> {{ booking.user.get_full_name }}</td>
+        <tr>
+          <td> {{ index }}</td>
+          <td> {{ booking.user.get_full_name }}</td>
+        </tr>
       {% endfor %}
+      </tbody>
     </table>
   </div>
 {% endblock %}
