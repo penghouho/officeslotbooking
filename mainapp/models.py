@@ -16,3 +16,4 @@ class Booking(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['book_date', 'user'], name='user_book_date')
         ]
+        ordering = ['created_at']
