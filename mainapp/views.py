@@ -7,6 +7,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
+from datetime import datetime
+from django.utils.safestring import mark_safe
+from .utils import BookingCalendar
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -35,12 +38,50 @@ class BookingViewSet(viewsets.ModelViewSet):
 
 def index(request):
     if request.user.is_authenticated:
+        queryprms = request.GET
+        month_string = queryprms.get('month')
+        year_string = queryprms.get('year')
+
+        month = int(month_string) if month_string is not None and month_string.isdigit() else None
+        year = int(year_string) if year_string is not None and year_string.isdigit() else None
+
+        today = datetime.today()
+        current_month = today.month
+        current_year = today.year
+        if year is None:
+            year = current_year
+        if month is None:
+            month = current_month
+
+        html_calendar = BookingCalendar()
+        cal = html_calendar.formatmonth(year, month, withyear=True)
+        cal = cal.replace('<td ', '<td width="150" height="150"')
+        cal = mark_safe(cal)
+
+        if month is 1:
+            previous_month = 12
+            previous_year = year - 1
+        else:
+            previous_month = month - 1
+            previous_year = year
+
+        if month is 12:
+            next_month = 1
+            next_year = year + 1
+        else:
+            next_month = month + 1
+            next_year = year
+
         """View function for home page of site."""
         context = {
-            'num_books': 1,
-            'num_instances': 2,
+            'month': month,
+            'year': year,
+            'next_month_url': '?month=' + str(next_month) + '&year=' + str(next_year),
+            'current_month_url': '?month=' + str(current_month) + '&year=' + str(current_year),
+            'previous_month_url': '?month=' + str(previous_month) + '&year=' + str(previous_year),
             'num_instances_available': 3,
             'num_authors': 4,
+            'cal': cal
         }
 
         # Render the HTML template index.html with the data in the context variable
