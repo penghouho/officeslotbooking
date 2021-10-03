@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Date Details</h1>
+  <div class="table-responsive">
+    <table class="table">
+      {% for booking in bookings_from_day %}
+        <td> {{ booking.user.first_name + ' ' + booking.user.last_name }}</td> </td>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

@@ -103,3 +103,20 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
+def date_details(request):
+    if request.user.is_authenticated:
+        queryprms = request.GET
+        date_string = queryprms.get('date')
+        try:
+            target_date = datetime.strptime(date_string, "%Y-%m-%d")
+        except ValueError:
+            target_date = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+        print(target_date)
+        bookings_from_day = Booking.objects.filter(book_date=target_date)
+        context = {
+            'bookings_from_day': bookings_from_day,
+        }
+        return render(request, 'date_details.html', context=context)
+    else:
+        return redirect('accounts/login')
+
