@@ -3,15 +3,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-def validate_edu_email_address(value):
+def validate_company_email_address(value):
     if not value.endswith('@surialabs.com'):
         raise forms.ValidationError("Only @surialabs.com emails allowed")
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    first_name = forms.CharField(max_length=30, required=True, help_text='Required.')
+    last_name = forms.CharField(max_length=30, required=True, help_text='Required.')
     email = forms.EmailField(
         max_length=254,
-        validators=[validate_edu_email_address],
+        validators=[validate_company_email_address],
         help_text='Required. Inform a valid email address.'
     )
 
