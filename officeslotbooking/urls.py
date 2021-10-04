@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.urls import path, include
 # from rest_framework import routers
-from django.contrib import admin
+# from django.contrib import admin
 # from mainapp import views
 
 # Routers provide an easy way of automatically determining the URL conf.

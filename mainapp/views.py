@@ -4,14 +4,15 @@ from .models import Booking
 from rest_framework import viewsets, permissions
 from .serializers import UserSerializer, GroupSerializer, BookingSerializer
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from .forms import SignUpForm
+from django.contrib.auth import login, authenticate, update_session_auth_hash
+from .forms import SignUpForm, ChangeProfileForm
 from datetime import datetime
 from django.utils.safestring import mark_safe
 from .utils import BookingCalendar
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -170,3 +171,30 @@ def delete_booking(request):
             return HttpResponseRedirect('/date_details/?date=%s' % request.POST.get('date'))
     else:
         return HttpResponseRedirect('accounts/login')
+
+def change_profile(request):
+    if request.method == 'POST':
+        form = ChangeProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('/')
+    else:
+        form = ChangeProfileForm(instance=request.user)
+    return render(request, 'change_profile.html', {'form': form})
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {
+        'form': form
+    })
