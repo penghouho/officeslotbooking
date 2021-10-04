@@ -1,18 +1,20 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Office Slot Booking</h1>
-  <a class="btn btn-primary" role="button" href={{ previous_month_url }}>
-    Previous month
-  </a>
+  <h1 class="mt-2">Office Slot Booking</h1>
+  <div class="my-2">
+    <a class="btn btn-primary" role="button" href={{ previous_month_url }}>
+      Previous month
+    </a>
 
-  <a class="btn btn-primary" role="button" href={{ current_month_url }}>
-    Current month
-  </a>
+    <a class="btn btn-primary" role="button" href={{ current_month_url }}>
+      Current month
+    </a>
 
-  <a class="btn btn-primary" role="button" href={{ next_month_url }}>
-    Next month
-  </a>
+    <a class="btn btn-primary" role="button" href={{ next_month_url }}>
+      Next month
+    </a>
+  </div>
 
   <div class="d-flex p-2">
     {{ cal }}
