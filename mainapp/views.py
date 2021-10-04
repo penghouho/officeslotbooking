@@ -123,7 +123,6 @@ def date_details(request):
             'reached_limit': bookings_count >= 20,
             'bookings_count': bookings_count,
         }
-        print(context)
         return render(request, 'date_details.html', context=context)
     else:
         return redirect('accounts/login')
